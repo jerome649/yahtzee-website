@@ -1,0 +1,18 @@
+<span *ngIf="itemScore.done">
+  {{itemScore.score}}
+</span>
+<span *ngIf="isPlayer() && isPlayerColumn() && itemScore.estimated == 0 && !itemScore.done" class="label label-danger" (click)="onClick()">
+  {{itemScore.estimated}}
+</span>
+<span *ngIf="isPlayer() && isPlayerColumn() && itemScore.estimated != 0 && !itemScore.done" class="label label-success" (click)="onClick()">
+  {{itemScore.estimated}}
+</span>
+<span *ngIf="!isPlayer() && isPlayerColumn() && itemScore.estimated == 0 && !itemScore.done" class="label label-danger">
+  {{itemScore.estimated}}
+</span>
+<span *ngIf="!isPlayer() && isPlayerColumn() && itemScore.estimated != 0 && !itemScore.done" class="label label-success">
+  {{itemScore.estimated}}
+</span>
+<span *ngIf="!isPlayerColumn() && !itemScore.done">
+  -
+</span>

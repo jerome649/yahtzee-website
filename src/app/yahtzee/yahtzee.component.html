@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <p>{{title}}</p>
+      <p *ngIf="yahtzeeBoard">It is {{yahtzeeBoard.player}} to play !</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <app-board [yahtzeeBoard]="yahtzeeBoard" [user]="user" *ngIf="yahtzeeBoard && user"></app-board>
+    </div>
+    <div class="col-md-1">
+      <app-dices [yahtzeeBoard]="yahtzeeBoard" [user]="user" *ngIf="yahtzeeBoard && user"></app-dices>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="row">
+  <div class="col-md-12">
+    <app-dice #dice1 [diceNumber]="yahtzeeBoard.dices[0]"></app-dice>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <app-dice #dice2 [diceNumber]="yahtzeeBoard.dices[1]"></app-dice>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <app-dice #dice3 [diceNumber]="yahtzeeBoard.dices[2]"></app-dice>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <app-dice #dice4 [diceNumber]="yahtzeeBoard.dices[3]"></app-dice>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <app-dice #dice5 [diceNumber]="yahtzeeBoard.dices[4]"></app-dice>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <button class="btn btn-danger" [disabled]="user.toLowerCase() != yahtzeeBoard.player.toLowerCase() || yahtzeeBoard.attempt == 0" (click)="throw(dice1.selected, dice2.selected, dice3.selected, dice4.selected, dice5.selected)">Throw ({{yahtzeeBoard.attempt}})</button>
+  </div>
+</div>
