@@ -8,8 +8,8 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class YahtzeeService {
 
-  private webApiUrl = "http://localhost:3000";
-  //private webApiUrl = "http://yahtzeeapi649.azurewebsites.net:80";
+  //private webApiUrl = "http://localhost:3000";
+  private webApiUrl = "http://yahtzeeapi649.azurewebsites.net:80";
 
   constructor(private http: Http) { }
 

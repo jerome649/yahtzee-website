@@ -1,23 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params }   from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 
 import { YahtzeeBoard } from '../yahtzee-board';
 import { YahtzeeService } from '../yahtzee.service';
+import { SpinnerService } from '../spinner.service';
 
 @Component({
   selector: 'app-yahtzee',
   templateUrl: './yahtzee.component.html'
 })
-export class YahtzeeComponent implements OnInit {
+export class YahtzeeComponent implements OnInit, OnDestroy {
 
   title: string = "waiting for yahtzee server...";
   yahtzeeBoard: YahtzeeBoard;
   user: string;
+  private webSocket;
+  loading: boolean;
+  private subscription;
 
   constructor(
     private yahtzeeService:YahtzeeService,
-    private route: ActivatedRoute) { }
+    private spinnerService:SpinnerService,
+    private route: ActivatedRoute) {
+      this.subscription = spinnerService.isLoadingObs.subscribe(
+        loading => { this.loading = loading; });
+    }
 
   ngOnInit() {
     this.onUserResolved(this.route.snapshot.paramMap.get('user'));
@@ -25,6 +33,20 @@ export class YahtzeeComponent implements OnInit {
       ping => this.onReceivedPing(ping.message));
     this.yahtzeeService.currentParty().then(
       yahtzeeBoard => this.onReceivedCurrentParty(yahtzeeBoard));
+    this.webSocket = new WebSocket("ws://yahtzeeapi649.azurewebsites.net:80");
+    //this.webSocket = new WebSocket("ws://localhost:3000");
+    var self = this;
+    this.webSocket.onmessage = function (event) {
+      var updatedYahtzeeBoard = JSON.parse(event.data);
+      self.yahtzeeBoard = updatedYahtzeeBoard;
+      self.spinnerService.activate(false);
+    }
+
+  }
+
+  ngOnDestroy() {
+    this.webSocket.close();
+    this.subscription.unsubscribe();
   }
 
   onReceivedPing(message) {

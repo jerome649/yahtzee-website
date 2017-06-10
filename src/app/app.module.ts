@@ -9,6 +9,7 @@ import { BoardComponent }   from './board/board.component';
 import { YahtzeeComponent } from './yahtzee/yahtzee.component';
 import { DicesComponent } from './dices/dices.component';
 import { YahtzeeService } from './yahtzee.service';
+import { SpinnerService } from './spinner.service';
 import { YahtzeeLoginComponent } from './yahtzee-login/yahtzee-login.component';
 import { DiceComponent } from './dice/dice.component';
 import { ItemScoreComponent } from './item-score/item-score.component';
@@ -30,7 +31,8 @@ import { ItemScoreComponent } from './item-score/item-score.component';
     AppRoutingModule
   ],
   providers: [
-    YahtzeeService
+    YahtzeeService,
+    SpinnerService
   ],
   bootstrap: [AppComponent]
 })

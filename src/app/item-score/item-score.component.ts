@@ -3,6 +3,7 @@ import { ItemScore } from '../item-score';
 
 import { YahtzeeService } from '../yahtzee.service';
 import { YahtzeeBoard } from '../yahtzee-board';
+import { SpinnerService } from '../spinner.service';
 
 @Component({
   selector: 'app-item-score',
@@ -15,7 +16,9 @@ export class ItemScoreComponent implements OnInit {
   @Input() columnUser: string;
   @Input() yahtzeeBoard: YahtzeeBoard;
 
-  constructor(private yahtzeeService: YahtzeeService) { }
+  constructor(
+    private yahtzeeService: YahtzeeService,
+    private spinnerService: SpinnerService) { }
 
   ngOnInit() {
   }
@@ -29,6 +32,7 @@ export class ItemScoreComponent implements OnInit {
   }
 
   onClick() {
+    this.spinnerService.activate(true);
     this.yahtzeeService.validate(this.user, this.itemScore.name)
       .then(data => console.log(data));
   }
