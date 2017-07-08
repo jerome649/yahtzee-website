@@ -5,11 +5,12 @@ import { YahtzeeBoard } from './yahtzee-board';
 
 import 'rxjs/add/operator/toPromise';
 
+import { environment } from '../environments/environment';
+
 @Injectable()
 export class YahtzeeService {
 
-  //private webApiUrl = "http://localhost:3000";
-  private webApiUrl = "http://yahtzeeapi649.azurewebsites.net:80";
+  private webApiUrl = environment.webApiUrl;
 
   constructor(private http: Http) { }
 
