@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  webApiUrl: "http://localhost:3000",
-  webSocketUrl: "ws://localhost:3000"
+  webApiUrl: "https://localhost:3000",
+  webSocketUrl: "wss://localhost:3000"
 };

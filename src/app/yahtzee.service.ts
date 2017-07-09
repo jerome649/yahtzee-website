@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 
 import { YahtzeeBoard } from './yahtzee-board';
+import { AuthenticationService } from './authentication.service';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -12,7 +13,10 @@ export class YahtzeeService {
 
   private webApiUrl = environment.webApiUrl;
 
-  constructor(private http: Http) { }
+  constructor(
+    private http: Http,
+    private authenticationService: AuthenticationService
+  ) { }
 
   public testPing() {
     const url = `${this.webApiUrl}/ping`;
@@ -32,13 +36,18 @@ export class YahtzeeService {
       .catch(this.handleError);
   }
 
-  public validate(user: string, playedItem: string) {
+  public validate(playedItem: string) {
     const url = `${this.webApiUrl}/validate`;
 
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    let bodyString = JSON.stringify({"user": user, "playedItem": playedItem});
+    let bodyString = JSON.stringify(
+      {
+        "token": this.authenticationService.getToken(),
+        "playedItem": playedItem
+      }
+    );
 
     return this.http
       .post(url, bodyString, options)
@@ -47,13 +56,18 @@ export class YahtzeeService {
       .catch(this.handleError);
   }
 
-  public throw(user: string, keeps) {
+  public throw(keeps) {
     const url = `${this.webApiUrl}/throw`;
 
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
 
-    let bodyString = JSON.stringify({"user": user, "keeps": keeps});
+    let bodyString = JSON.stringify(
+      {
+        "token": this.authenticationService.getToken(),
+        "keeps": keeps
+      }
+    );
 
     return this.http
       .post(url, bodyString, options)
@@ -63,7 +77,7 @@ export class YahtzeeService {
   }
 
   private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
+    console.error('An error occurred', error);
     return Promise.reject(error.message || error);
   }
 

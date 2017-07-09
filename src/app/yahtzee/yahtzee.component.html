@@ -12,10 +12,10 @@
   </div>
   <div class="row">
     <div class="col-sm-6">
-      <app-board [yahtzeeBoard]="yahtzeeBoard" [user]="user" *ngIf="yahtzeeBoard && user"></app-board>
+      <app-board [yahtzeeBoard]="yahtzeeBoard" *ngIf="yahtzeeBoard"></app-board>
     </div>
     <div class="col-sm-1">
-      <app-dices [yahtzeeBoard]="yahtzeeBoard" [user]="user" *ngIf="yahtzeeBoard && user"></app-dices>
+      <app-dices [yahtzeeBoard]="yahtzeeBoard" *ngIf="yahtzeeBoard"></app-dices>
     </div>
   </div>
 </div>

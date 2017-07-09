@@ -3,6 +3,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { YahtzeeBoard } from '../yahtzee-board';
 import { YahtzeeService } from '../yahtzee.service';
 import { SpinnerService } from '../spinner.service';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-dices',
@@ -10,13 +11,16 @@ import { SpinnerService } from '../spinner.service';
 })
 export class DicesComponent implements OnInit {
 
-  @Input() user: string;
+  user: string;
   @Input() yahtzeeBoard: YahtzeeBoard;
 
   constructor(
     private yahtzeeService: YahtzeeService,
-    private spinnerService: SpinnerService
-  ) { }
+    private spinnerService: SpinnerService,
+    private authenticationService: AuthenticationService
+  ) {
+    this.user = authenticationService.getEmail();
+  }
 
   ngOnInit() {
   }
@@ -30,7 +34,7 @@ export class DicesComponent implements OnInit {
         keep.push(i);
       }
     }
-    this.yahtzeeService.throw(this.user, keep).then(
+    this.yahtzeeService.throw(keep).then(
       data => console.log(data)
     );
   }

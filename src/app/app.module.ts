@@ -13,6 +13,8 @@ import { SpinnerService } from './spinner.service';
 import { YahtzeeLoginComponent } from './yahtzee-login/yahtzee-login.component';
 import { DiceComponent } from './dice/dice.component';
 import { ItemScoreComponent } from './item-score/item-score.component';
+import { AuthenticationGuard } from './authentication.guard';
+import { AuthenticationService } from './authentication.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { ItemScoreComponent } from './item-score/item-score.component';
   ],
   providers: [
     YahtzeeService,
-    SpinnerService
+    SpinnerService,
+    AuthenticationService,
+    AuthenticationGuard
   ],
   bootstrap: [AppComponent]
 })

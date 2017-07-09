@@ -16,7 +16,6 @@ export class DiceComponent implements OnInit {
   }
 
   onClick() {
-    //console.log("clicked on selected");
     this.selected = !this.selected;
   }
 

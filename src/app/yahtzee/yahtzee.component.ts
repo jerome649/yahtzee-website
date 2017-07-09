@@ -16,21 +16,18 @@ export class YahtzeeComponent implements OnInit, OnDestroy {
 
   title: string = "waiting for yahtzee server...";
   yahtzeeBoard: YahtzeeBoard;
-  user: string;
   private webSocket;
   loading: boolean;
   private subscription;
 
   constructor(
     private yahtzeeService:YahtzeeService,
-    private spinnerService:SpinnerService,
-    private route: ActivatedRoute) {
+    private spinnerService:SpinnerService) {
       this.subscription = spinnerService.isLoadingObs.subscribe(
         loading => { this.loading = loading; });
     }
 
   ngOnInit() {
-    this.onUserResolved(this.route.snapshot.paramMap.get('user'));
     this.yahtzeeService.testPing().then(
       ping => this.onReceivedPing(ping.message));
     this.yahtzeeService.currentParty().then(
@@ -56,10 +53,6 @@ export class YahtzeeComponent implements OnInit, OnDestroy {
 
   onReceivedCurrentParty(yahtzeeBoard) {
     this.yahtzeeBoard = yahtzeeBoard;
-  }
-
-  onUserResolved(user) {
-    this.user = user;
   }
 
 }

@@ -8,7 +8,6 @@ import { YahtzeeBoard } from '../yahtzee-board';
 export class BoardComponent implements OnInit {
 
   @Input() yahtzeeBoard: YahtzeeBoard;
-  @Input() user: string;
 
   constructor() { }
 

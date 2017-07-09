@@ -4,6 +4,7 @@ import { ItemScore } from '../item-score';
 import { YahtzeeService } from '../yahtzee.service';
 import { YahtzeeBoard } from '../yahtzee-board';
 import { SpinnerService } from '../spinner.service';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
   selector: 'app-item-score',
@@ -12,13 +13,16 @@ import { SpinnerService } from '../spinner.service';
 export class ItemScoreComponent implements OnInit {
 
   @Input() itemScore: ItemScore;
-  @Input() user: string;
+  user: string;
   @Input() columnUser: string;
   @Input() yahtzeeBoard: YahtzeeBoard;
 
   constructor(
     private yahtzeeService: YahtzeeService,
-    private spinnerService: SpinnerService) { }
+    private spinnerService: SpinnerService,
+    private authenticationService: AuthenticationService) {
+    this.user = authenticationService.getEmail();
+  }
 
   ngOnInit() {
   }
@@ -33,7 +37,7 @@ export class ItemScoreComponent implements OnInit {
 
   onClick() {
     this.spinnerService.activate(true);
-    this.yahtzeeService.validate(this.user, this.itemScore.name)
+    this.yahtzeeService.validate(this.itemScore.name)
       .then(data => console.log(data));
   }
 
